@@ -8,58 +8,6 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 
 
-def get_square_number_as_string(element: WebElement) -> tuple:
-    if not element:
-        return None
-
-    try:
-        square_number = element.get_attribute("class").split(" ")[2].split("-")[1]
-    except StaleElementReferenceException:
-        return None
-
-    return {"col": square_number[0], "row": square_number[1]}
-
-
-def get_square_number_as_int(element: WebElement) -> tuple:
-    if not element:
-        return None
-
-    square_number = get_square_number_as_string(element)
-
-    return {"col": int(square_number["col"]), "row": int(square_number["row"])}
-
-
-def get_piece_name_from_element(element: WebElement) -> chess.PieceType:
-    if not element:
-        return None
-
-    try:
-        piece_name = element.get_attribute("class").split(" ")[1][1]
-    except StaleElementReferenceException:
-        return None
-
-    return parser_constants.ELEMENT_PIECE_NAME_TO_CHESS_PIECE_NAME[piece_name]
-
-
-def get_piece_color_from_element(element: WebElement) -> chess.Color:
-    if not element:
-        return None
-
-    try:
-        color_text = element.get_attribute("class").split(" ")[1][0]
-    except StaleElementReferenceException:
-        return None
-
-    return parser_constants.ELEMENT_PIECE_COLOR_TO_CHESS_PIECE_COLOR[color_text]
-
-
-def get_piece_from_element(element: WebElement) -> chess.Piece:
-    if not element:
-        return None
-
-    return chess.Piece(get_piece_name_from_element(element), get_piece_color_from_element(element))
-
-
 def get_piece_color_from_node_element(element: WebElement) -> chess.Color:
     if not element:
         return None

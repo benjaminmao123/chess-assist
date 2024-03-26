@@ -8,25 +8,9 @@ import chess
 
 
 class ChessBoardSquare:
-    def __init__(
-        self, size: tuple, position: tuple, piece_element: WebElement = None, piece: chess.Piece = None
-    ) -> None:
-        self.__piece_element = piece_element
-        self.__piece = piece
+    def __init__(self, size: tuple, position: tuple) -> None:
         self.__size = size
         self.__position = position
-
-    # def get_piece(self) -> chess.Piece:
-    #     return self.__piece
-
-    # def get_piece_element(self) -> WebElement:
-    #     return self.__piece_element
-
-    def set_piece(self, piece: chess.Piece) -> None:
-        self.__piece = piece
-
-    def set_piece_element(self, piece_element: WebElement) -> None:
-        self.__piece_element = piece_element
 
     def get_size(self) -> tuple:
         return self.__size

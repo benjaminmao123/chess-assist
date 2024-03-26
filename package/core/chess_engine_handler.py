@@ -12,3 +12,6 @@ class ChessEngineHandler:
 
     def set_fen(self, fen: str) -> None:
         self.__engine.set_fen_position(fen)
+
+    def get_evaluation(self) -> str:
+        return self.__engine.get_evaluation()

@@ -2,3 +2,4 @@ stockfish
 selenium
 python-chess
 keyboard
+consoledraw

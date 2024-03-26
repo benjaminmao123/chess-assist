@@ -74,6 +74,7 @@ class StatePlaying(State):
         keyboard.on_press_key(self._settings["playNextMoveHotkey"], self.__update_manual_mode)
 
     def update(self) -> None:
+        self._chess_board.update_board()
         self.__update_automatic_mode()
 
     def __update_automatic_mode(self) -> None:
@@ -87,8 +88,6 @@ class StatePlaying(State):
     def __compute_and_play_best_move(self) -> None:
         if not self._player.is_turn():
             return
-
-        self._chess_board.update_board()
 
         self._chess_engine_handler.set_fen(self._chess_board.get_fen())
         uci = self._chess_engine_handler.get_next_move()

@@ -29,6 +29,11 @@ class ChessBoard:
     def __init__(self, driver: Chrome) -> None:
         self.__driver = driver
         self.__board = chess.Board()
+        self.__board_element = None
+        self.__board_mapping = [[None] * 9 for _ in range(9)]
+        self.__range_params = None
+        self.__nodes = None
+        self.__previous_nodes = None
         self.__init_board()
 
     def __init_board(self) -> None:
@@ -44,7 +49,6 @@ class ChessBoard:
 
     def __init_board_squares(self) -> None:
         square_size = (self.__board_element.size["width"] / 8, self.__board_element.size["height"] / 8)
-        self.__board_mapping = [[None] * 9 for _ in range(9)]
 
         for row, row_index in zip(
             range(
@@ -123,3 +127,6 @@ class ChessBoard:
                 self.push_san(parser.get_san_from_figurine(node))
         except (ValueError, TypeError):
             pass
+
+    def get_last_move(self) -> str:
+        return self.__board.peek().uci()

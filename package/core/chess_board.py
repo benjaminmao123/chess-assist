@@ -55,50 +55,36 @@ class ChessBoard:
         else:
             self.__board_element = self.__driver.find_elements(By.CSS_SELECTOR, selector_constants.BOARD)[0]
 
-        self.__init_board_squares(self.__range_params)
+        self.__init_board_squares()
+        self.__update_nodes()
 
-        self.__nodes = self.__driver.find_elements(By.CSS_SELECTOR, selector_constants.NODES)
-        self.__previous_nodes = self.__nodes
-
-        try:
-            for node in self.__nodes:
-                self.push_san(parser.get_san_from_figurine(node))
-        except (ValueError, TypeError):
-            pass
-
-    def __init_board_squares(
-        self,
-        range_params: dict,
-    ) -> None:
+    def __init_board_squares(self) -> None:
         square_size = (self.__board_element.size["width"] / 8, self.__board_element.size["height"] / 8)
         self.__board_mapping = [[None] * 9 for _ in range(9)]
 
         for row, row_index in zip(
-            range(range_params["row_start"], range_params["row_end"], range_params["row_increment"]), range(1, 9)
+            range(
+                self.__range_params["row_start"], self.__range_params["row_end"], self.__range_params["row_increment"]
+            ),
+            range(1, 9),
         ):
             for col, col_index in zip(
-                range(range_params["col_start"], range_params["col_end"], range_params["col_increment"]), range(1, 9)
+                range(
+                    self.__range_params["col_start"],
+                    self.__range_params["col_end"],
+                    self.__range_params["col_increment"],
+                ),
+                range(1, 9),
             ):
                 x = col * square_size[0]
                 y = row * square_size[1]
 
                 self.__board_mapping[row_index][col_index] = ChessBoardSquare(square_size, (x, y))
 
-        # piece_elements = self.__driver.find_elements(By.XPATH, selector_constants.PIECES)
-
-        # for piece_element in piece_elements:
-        #     try:
-        #         square_number = parser.get_square_number_as_int(piece_element)
-        #         self.__board_mapping[square_number["row"]][square_number["col"]].set_piece_element(piece_element)
-        #         self.__board_mapping[square_number["row"]][square_number["col"]].set_piece(
-        #             parser.get_piece_from_element(piece_element)
-        #         )
-        #     except IndexError:
-        #         pass
-
     def update_board(self) -> None:
         if self.__is_board_dirty():
-            self.__init_board()
+            self.__board.reset()
+            self.__update_nodes()
 
     def get_board_element(self) -> WebElement:
         return self.__board_element
@@ -144,3 +130,13 @@ class ChessBoard:
         self.__nodes = self.__driver.find_elements(By.CSS_SELECTOR, selector_constants.NODES)
 
         return len(self.__previous_nodes) != len(self.__nodes)
+
+    def __update_nodes(self) -> None:
+        self.__nodes = self.__driver.find_elements(By.CSS_SELECTOR, selector_constants.NODES)
+        self.__previous_nodes = self.__nodes
+
+        try:
+            for node in self.__nodes:
+                self.push_san(parser.get_san_from_figurine(node))
+        except (ValueError, TypeError):
+            pass

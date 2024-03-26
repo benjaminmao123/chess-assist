@@ -95,7 +95,7 @@ class StatePlaying(State):
 
         try:
             self._chess_board.push_uci(uci)
-        except ValueError:
+        except (ValueError, TypeError):
             return
 
         squares = parser.convert_uci_to_board_squares_as_int(uci)

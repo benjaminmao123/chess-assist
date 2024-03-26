@@ -1,0 +1,7 @@
+BOARD = ".board"
+BOARD_FLIPPED = ".board.flipped"
+RESIGN = "//*[contains(@class, 'resign') or contains(text(), 'Resign')]"
+PIECES = "//*[starts-with(@class, 'piece ') and contains(@class, ' square-')]"
+NODES = ".node"
+NODE_SELECTED = ".node.selected"
+PROMOTION_PIECE = ".promotion-piece"

@@ -1,0 +1,4 @@
+stockfish
+selenium
+python-chess
+keyboard

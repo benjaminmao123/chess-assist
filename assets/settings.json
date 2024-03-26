@@ -1,0 +1,25 @@
+{
+    "logsPath": "logs",
+    "stockfishPath": "assets/engine/stockfish.exe",
+    "isDebug": false,
+    "settingsPath": "assets/settings.json",
+    "stockfishDepth": 15,
+    "stockfishParameters": {
+        "Contempt": 0,
+        "Min Split Depth": 0,
+        "Threads": 1,
+        "Ponder": false,
+        "Hash": 8,
+        "MultiPV": 1,
+        "Skill Level": 20,
+        "Move Overhead": 1,
+        "Minimum Thinking Time": 1,
+        "Slow Mover": 1,
+        "UCI_Chess960": false,
+        "UCI_LimitStrength": false,
+        "UCI_Elo": 3000
+    },
+    "automaticModeHotkey": "insert",
+    "automaticModeEnabled": true,
+    "playNextMoveHotkey": "delete"
+}

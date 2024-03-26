@@ -59,7 +59,10 @@ def get_san_from_figurine(element: WebElement) -> str:
     except StaleElementReferenceException:
         return None
 
-    figurine_text = span_element.get_attribute("data-figurine")
+    try:
+        figurine_text = span_element.get_attribute("data-figurine")
+    except StaleElementReferenceException:
+        return None
 
     if not figurine_text:
         return element.text

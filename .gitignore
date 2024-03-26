@@ -166,3 +166,4 @@ assets/settings.json
 
 # Built Visual Studio Code Extensions
 *.vsix
+assets/settings.json

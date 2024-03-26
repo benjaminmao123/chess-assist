@@ -67,8 +67,7 @@ class ChessBoard:
 
     def update_board(self) -> None:
         if self.__is_board_dirty():
-            self.__board.reset()
-            self.__update_nodes()
+            self.__init_board()
 
     def get_board_element(self) -> WebElement:
         return self.__board_element

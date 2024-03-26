@@ -58,6 +58,11 @@ class Application:
 
     def __quit(self, driver: Chrome) -> None:
         self.__serialize_settings()
+
+        if not self.__is_browser_open(driver):
+            driver.quit()
+            driver.close()
+
         sys.exit()
 
     def __is_browser_open(self, driver: Chrome) -> bool:

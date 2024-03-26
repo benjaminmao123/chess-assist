@@ -16,11 +16,11 @@ class ChessBoardSquare:
         self.__size = size
         self.__position = position
 
-    def get_piece(self) -> chess.Piece:
-        return self.__piece
+    # def get_piece(self) -> chess.Piece:
+    #     return self.__piece
 
-    def get_piece_element(self) -> WebElement:
-        return self.__piece_element
+    # def get_piece_element(self) -> WebElement:
+    #     return self.__piece_element
 
     def set_piece(self, piece: chess.Piece) -> None:
         self.__piece = piece
@@ -44,12 +44,7 @@ class ChessBoardSquare:
 class ChessBoard:
     def __init__(self, driver: Chrome) -> None:
         self.__driver = driver
-        self.__board_mapping = []
-        self.__range_params = dict()
-        self.__board_element = None
         self.__board = chess.Board()
-        self.__previous_nodes = []
-        self.__nodes = []
         self.__init_board()
 
     def __init_board(self) -> None:
@@ -67,8 +62,8 @@ class ChessBoard:
 
         try:
             for node in self.__nodes:
-                self.push_san(node.text)
-        except ValueError:
+                self.push_san(parser.get_san_from_figurine(node))
+        except (ValueError, TypeError):
             pass
 
     def __init_board_squares(
@@ -89,20 +84,21 @@ class ChessBoard:
 
                 self.__board_mapping[row_index][col_index] = ChessBoardSquare(square_size, (x, y))
 
-        piece_elements = self.__driver.find_elements(By.XPATH, selector_constants.PIECES)
+        # piece_elements = self.__driver.find_elements(By.XPATH, selector_constants.PIECES)
 
-        for piece_element in piece_elements:
-            try:
-                square_number = parser.get_square_number_as_int(piece_element)
-                self.__board_mapping[square_number["row"]][square_number["col"]].set_piece_element(piece_element)
-                self.__board_mapping[square_number["row"]][square_number["col"]].set_piece(
-                    parser.get_piece_from_element(piece_element)
-                )
-            except IndexError:
-                pass
+        # for piece_element in piece_elements:
+        #     try:
+        #         square_number = parser.get_square_number_as_int(piece_element)
+        #         self.__board_mapping[square_number["row"]][square_number["col"]].set_piece_element(piece_element)
+        #         self.__board_mapping[square_number["row"]][square_number["col"]].set_piece(
+        #             parser.get_piece_from_element(piece_element)
+        #         )
+        #     except IndexError:
+        #         pass
 
     def update_board(self) -> None:
-        self.__init_board()
+        if self.__is_board_dirty():
+            self.__init_board()
 
     def get_board_element(self) -> WebElement:
         return self.__board_element

@@ -20,6 +20,6 @@
         "UCI_Elo": 3000
     },
     "automaticModeHotkey": "insert",
-    "automaticModeEnabled": true,
+    "automaticModeEnabled": false,
     "playNextMoveHotkey": "delete"
 }

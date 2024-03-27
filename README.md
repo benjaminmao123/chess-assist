@@ -6,5 +6,6 @@ Bot that plays for you on chess.com
 - Run the runner.bat file and enjoy.
  
 ## Hotkeys: 
-- Insert to toggle autoplay.
-- Delete to play best move when not in autoplay mode.
+- ### Insert - Toggle autoplay.
+- ### Delete - Play best move when not in autoplay mode.
+- ### Home - Reset bot if stuck.

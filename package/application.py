@@ -56,17 +56,17 @@ class Application:
             
     def __set_playing_state(self) -> None:
         self.__chess_board = ChessBoard(self.__driver)
-        self.__state_manager.set_state(StatePlaying(self.__settings,
-                                                    driver=self.__driver,
-                                                    chess_engine_handler=self.__chess_engine_handler,
-                                                    chess_board=self.__chess_board))
+        self.__state_manager.set_state(
+            StatePlaying(self.__settings,
+                        driver=self.__driver,
+                        chess_engine_handler=self.__chess_engine_handler,
+                        chess_board=self.__chess_board))
 
     def __quit(self) -> None:
         self.__serialize_settings()
 
-        if not self.__is_browser_open(self.__driver):
+        if not self.__is_browser_open():
             self.__driver.quit()
-            self.__driver.close()
 
         sys.exit()
 

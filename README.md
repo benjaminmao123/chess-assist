@@ -1,4 +1,4 @@
-# chess-bot
+# Chess Assist
 
 Bot that plays for you on chess.com
 
